@@ -148,7 +148,9 @@ class MyHomePageState extends State<MyHomePage> {
             ),
             new ListTile(
               title: new Text('Sign In'),
-              onTap: _signIn,
+              onTap: () => _signIn()
+                .then((FirebaseUser user) => print(user))
+                .catchError((e) => print(e)),
             ),
             new ListTile(
               title: new Text('Sign Out'),
