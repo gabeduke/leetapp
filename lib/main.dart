@@ -11,9 +11,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
-      theme: new ThemeData(
-        primarySwatch: Colors.blue,
+      title: 'Leet App',
+      theme: ThemeData(
+        // Define the default Brightness and Colors
+        brightness: Brightness.dark,
+        primaryColor: Colors.lightBlue[800],
+        accentColor: Colors.cyan[600],
+        secondaryHeaderColor: Colors.blueGrey,
+
+        // Define the default Font Family
+        fontFamily: 'Montserrat',
+
+        // Define the default TextTheme. Use this to specify the default
+        // text styling for headlines, titles, bodies of text, and more.
+        textTheme: TextTheme(
+          headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+          body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),
       ),
       home: new MyHomePage(),
     );
@@ -119,7 +134,36 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text("Firebase Demo"),
+          title: new Text("LeetApp"),
+        ),
+        drawer: new Drawer(
+        child: new ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget> [
+            new DrawerHeader(
+              child: new Text('Menu'),
+              decoration: BoxDecoration(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
+            ),
+            new ListTile(
+              title: new Text('Sign In'),
+              onTap: _signIn,
+            ),
+            new ListTile(
+              title: new Text('Sign Out'),
+              onTap: _signOut,
+            ),
+            new Divider(),
+            new ListTile(
+              title: new Text('About'),
+              onTap: () { Navigator.push(
+                context,
+                new MaterialPageRoute(builder: (ctxt) => new AboutPage()),
+                );},
+            ),
+          ],
+        ),
         ),
         body: new Padding(
             padding: const EdgeInsets.all(20.0),
@@ -127,42 +171,29 @@ class MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                new RaisedButton(
-                  onPressed: () => _signIn()
-                      .then((FirebaseUser user) => print(user))
-                      .catchError((e) => print(e)),
-                  child: new Text("Sign In"),
-                  color: Colors.green,
-                ),
-                new Padding(padding: const EdgeInsets.all(10.0)),
-                new RaisedButton(
-                  onPressed: _signOut,
-                  child: new Text("Sign out"),
-                  color: Colors.red,
-                ),
                 new Padding(padding: const EdgeInsets.all(10.0)),
                 new RaisedButton(
                   onPressed: _add,
                   child: new Text("Create"),
-                  color: Colors.cyan,
+                  color: Theme.of(context).accentColor,
                 ),
                 new Padding(padding: const EdgeInsets.all(10.0)),
                 new RaisedButton(
                   onPressed: _update,
                   child: new Text("Update"),
-                  color: Colors.cyan,
+                  color: Theme.of(context).accentColor,
                 ),
                 new Padding(padding: const EdgeInsets.all(10.0)),
                 new RaisedButton(
                   onPressed: _delete,
                   child: new Text("Delete"),
-                  color: Colors.cyan,
+                  color: Theme.of(context).accentColor,
                 ),
                 new Padding(padding: const EdgeInsets.all(10.0)),
                 new RaisedButton(
                   onPressed: _fetch,
                   child: new Text("Get"),
-                  color: Colors.cyan,
+                  color: Theme.of(context).accentColor,
                 ),
                 new Padding(padding: const EdgeInsets.all(10.0)),
                 myText == null
@@ -173,5 +204,17 @@ class MyHomePageState extends State<MyHomePage> {
                       ),
               ],
             )));
+  }
+}
+
+class AboutPage extends StatelessWidget {
+  @override
+  Widget build (BuildContext ctxt) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("About"),
+      ),
+      body: new Text("Leet App is an application that displays a database record for a given user."),
+    );
   }
 }
