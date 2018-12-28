@@ -42,6 +42,13 @@
             {
               "client_id": "157484514902-btqlpt79jr97jktom7vibhsun8h1ieij.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "157484514902-r71vmhlbuirg2l2hjvdrodcs5n674h0c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.leetserve.app"
+              }
             }
           ]
         },
