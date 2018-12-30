@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "157484514902-l486nt4pe5j4ne83arjgkoj4uceqifss.apps.googleusercontent.com",
+          "client_id": "157484514902-bp0mb085dgno71u75rgfa9oo6kt087am.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.leetserve.app",
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "157484514902-btqlpt79jr97jktom7vibhsun8h1ieij.apps.googleusercontent.com",
+              "client_id": "157484514902-lahc7ujeld01ockt4i1d4s7ofgarf088.apps.googleusercontent.com",
               "client_type": 3
             },
             {
