@@ -43,11 +43,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  String myText = null;
+
+  String displayData;
+  String appUser;
+  Map<String, String> data;
   StreamSubscription<DocumentSnapshot> subscription;
 
-  final DocumentReference documentReference =
-      Firestore.instance.document("myData/users");
+  final CollectionReference collectionReference =
+      Firestore.instance.collection("users");
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -61,8 +64,14 @@ class MyHomePageState extends State<MyHomePage> {
         idToken: gSA.idToken, accessToken: gSA.accessToken);
 
     print("User Name : ${user.displayName}");
+    setState(() {
+      displayData = "Logged in";
+      appUser = googleSignIn.currentUser.email;
+    });
     return user;
   }
+
+
 
   void _signOut() {
     googleSignIn.signOut();
@@ -70,43 +79,51 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _add() {
-    Map<String, String> data = <String, String>{
-      "name": "current user: " + googleSignIn.currentUser.displayName,
-      "desc": "current email: " + googleSignIn.currentUser.email,
-    };
-    documentReference.setData(data).whenComplete(() {
-      print("User Added");
-    }).catchError((e) => print(e));
+    try {
+      setState(() {
+        //datamap
+        data = <String, String>{
+          "name": "current user: " + googleSignIn.currentUser.displayName,
+          "email": "current email: " + googleSignIn.currentUser.email,
+        };
+
+        collectionReference.document(appUser).setData(data).whenComplete(() {
+          print("User Added");
+        }).catchError((e) => print(e));
+      });
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void _delete() {
-    documentReference.delete().whenComplete(() {
+    collectionReference.document(appUser).delete().whenComplete(() {
       print("Deleted Successfully");
       setState(() {
-        myText = "User Deleted";
+        displayData = "User Deleted";
       });
     }).catchError((e) => print(e));
   }
 
   void _update() {
-    Map<String, String> data = <String, String>{
+    data = <String, String>{
       "name": "updated user: " + googleSignIn.currentUser.displayName,
-      "desc": "updated email: " + googleSignIn.currentUser.email,
+      "email": "updated email: " + googleSignIn.currentUser.email,
     };
-    documentReference.updateData(data).whenComplete(() {
+    collectionReference.document(appUser).updateData(data).whenComplete(() {
       print("User Updated");
     }).catchError((e) => print(e));
   }
 
   void _fetch() {
-    documentReference.get().then((datasnapshot) {
+    collectionReference.document(appUser).get().then((datasnapshot) {
       if (datasnapshot.exists) {
         setState(() {
-          myText = datasnapshot.data['name'];
+          displayData = datasnapshot.data['name'];
         });
       } else {
         setState(() {
-          myText = "User doesn't exist";
+          displayData = "User doesn't exist";
         });
       }
     });
@@ -115,13 +132,21 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    subscription = documentReference.snapshots().listen((datasnapshot) {
+    try {
+      appUser = googleSignIn.currentUser.email;
+      subscription = collectionReference.document(appUser).snapshots().listen((datasnapshot) {
       if (datasnapshot.exists) {
         setState(() {
-          myText = datasnapshot.data['desc'];
+          displayData = datasnapshot.data['email'];
         });
       }
     });
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        displayData = "Please log in";
+      });
+    };
   }
 
   @override
@@ -198,10 +223,10 @@ class MyHomePageState extends State<MyHomePage> {
                   color: Theme.of(context).accentColor,
                 ),
                 new Padding(padding: const EdgeInsets.all(10.0)),
-                myText == null
+                displayData == null
                     ? new Container()
                     : new Text(
-                        myText,
+                        displayData,
                         style: new TextStyle(fontSize: 20),
                       ),
               ],
