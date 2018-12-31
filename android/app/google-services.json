@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "157484514902-t3rt3u8qd1u7ab2lt20ij18p54ki6713.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leetserve.app",
+            "certificate_hash": "6916419e7f563ff52938fefb5d1e346182a2f706"
+          }
+        },
+        {
           "client_id": "157484514902-btqlpt79jr97jktom7vibhsun8h1ieij.apps.googleusercontent.com",
           "client_type": 3
         }
