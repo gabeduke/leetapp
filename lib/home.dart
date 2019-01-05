@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:app/main.dart';
 import 'package:app/drawer.dart';
 import 'package:app/settings.dart';
 
@@ -127,4 +126,11 @@ class MyHomePageState extends State<MyHomePage> {
       )
             );
   }
+}
+
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
 }
