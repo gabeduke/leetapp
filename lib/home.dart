@@ -118,7 +118,9 @@ class MyHomePageState extends State<MyHomePage> {
                       // Then show a snackbar!
                       // Scaffold.of(context)
                       //     .showSnackBar(SnackBar(content: Text("$item dismissed")));
-                      }, child: ListTile(title: Text('$item')),
+                      },
+                      background: Container(color: Colors.red),
+                      child: ListTile(title: Text('$item')),
                   );
                 })
           )],
