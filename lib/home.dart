@@ -19,7 +19,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
 
   List<String> litems = [];
-  final TextEditingController eCtrl = new TextEditingController();
+  final TextEditingController _textController = new TextEditingController();
 
   Map<String, String> data;
   bool isLoading = false;
@@ -48,6 +48,11 @@ class MyHomePageState extends State<MyHomePage> {
     } else {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
     }
+  }
+  void _handleSubmitted(String text) {
+    _textController.clear();
+    litems.add(text);
+    setState(() {});
   }
 
   @override
@@ -83,17 +88,27 @@ class MyHomePageState extends State<MyHomePage> {
         drawer: LeetDrawer(),
       body: new Column(
         children: <Widget>[
-          new TextField(
-            decoration: InputDecoration(
-              icon: Icon(Icons.text_fields),
-              labelText: 'Gift Wiki Wants..',
+          new Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: new Row(
+              children: <Widget>[
+                new Flexible(
+                  child: new TextField(
+                    controller: _textController,
+                    onSubmitted: _handleSubmitted,
+                    decoration:
+                      new InputDecoration.collapsed(hintText: "Wiki Items..")
+                  ),
+                ),
+                new Container(
+                  margin: new EdgeInsets.symmetric(horizontal: 4.0),
+                  child: new IconButton(
+                    icon: new Icon(Icons.send),
+                    onPressed: () => _handleSubmitted(_textController.text),
+                  )
+                ),
+              ]
             ),
-            controller: eCtrl,
-            onSubmitted: (text) {
-              litems.add(text);
-              eCtrl.clear();
-              setState(() {});
-            },
           ),
           new Expanded(
             child: new ListView.builder
