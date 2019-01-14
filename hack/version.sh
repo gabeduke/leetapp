@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 version=$(grep "version: " ./pubspec.yaml)
 echo "$version"
 versionBuildNumber=$(grep "version: " ./pubspec.yaml | sed /version.*\+/s///g)
