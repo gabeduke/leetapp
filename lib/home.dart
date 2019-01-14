@@ -88,28 +88,6 @@ class MyHomePageState extends State<MyHomePage> {
         drawer: LeetDrawer(),
       body: new Column(
         children: <Widget>[
-          new Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: new Row(
-              children: <Widget>[
-                new Flexible(
-                  child: new TextField(
-                    controller: _textController,
-                    onSubmitted: _handleSubmitted,
-                    decoration:
-                      new InputDecoration.collapsed(hintText: "Wiki Items..")
-                  ),
-                ),
-                new Container(
-                  margin: new EdgeInsets.symmetric(horizontal: 4.0),
-                  child: new IconButton(
-                    icon: new Icon(Icons.send),
-                    onPressed: () => _handleSubmitted(_textController.text),
-                  )
-                ),
-              ]
-            ),
-          ),
           new Expanded(
             child: new ListView.builder
               (
@@ -137,7 +115,30 @@ class MyHomePageState extends State<MyHomePage> {
                       child: ListTile(title: Text('$item')),
                   );
                 })
-          )],
+          ),
+          new Container(
+            margin: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: new Row(
+              children: <Widget>[
+                new Flexible(
+                  child: new TextField(
+                    controller: _textController,
+                    onSubmitted: _handleSubmitted,
+                    decoration:
+                      new InputDecoration.collapsed(hintText: "Wiki Items..")
+                  ),
+                ),
+                new Container(
+                  margin: new EdgeInsets.symmetric(horizontal: 4.0),
+                  child: new IconButton(
+                    icon: new Icon(Icons.send),
+                    onPressed: () => _handleSubmitted(_textController.text),
+                  )
+                ),
+              ]
+            ),
+          )
+          ],
       )
             );
   }
