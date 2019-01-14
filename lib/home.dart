@@ -59,7 +59,7 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: new Text("LeetApp"),
+          title: new Text("Wiki Leet"),
           actions: <Widget>[
             PopupMenuButton<Choice>(
               onSelected: onItemMenuPress,

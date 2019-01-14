@@ -1,4 +1,4 @@
-import 'package:app/about.dart';
+import 'package:app/help.dart';
 import 'package:app/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,12 +49,12 @@ class LeetDrawerState extends State<LeetDrawer> {
             ),
             new ListTile(
               leading: new Icon(Icons.info),
-              title: new Text('About'),
+              title: new Text('Help'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
                 context,
-                new MaterialPageRoute(builder: (ctxt) => new AboutPage()),
+                new MaterialPageRoute(builder: (ctxt) => new HelpPage()),
                 );},
             ),
           ],
