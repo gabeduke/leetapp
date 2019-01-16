@@ -3,6 +3,7 @@ import 'package:app/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:package_info/package_info.dart';
 
 class LeetDrawer extends StatefulWidget {
   @override
@@ -12,16 +13,38 @@ class LeetDrawer extends StatefulWidget {
 }
 
 class LeetDrawerState extends State<LeetDrawer> {
+
   SharedPreferences prefs;
+  String _projectName = "";
+  String _projectAppID = "";
+  String _projectVersion = "";
+  String _projectCode = "";
+
 
   @override
   void initState() {
     super.initState();
     getSharedPref();
+    getAppInfo();
   }
 
   void getSharedPref() async {
       prefs = await SharedPreferences.getInstance();
+  }
+
+  getAppInfo() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String projectName = packageInfo.appName;
+    String projectAppID = packageInfo.packageName;
+    String projectVersion = packageInfo.version;
+    String projectCode = packageInfo.buildNumber;
+
+    setState(() {
+      _projectVersion = projectVersion;
+      _projectCode = projectCode;
+      _projectAppID = projectAppID;
+      _projectName = projectName;
+    });
   }
 
   @override
@@ -48,7 +71,7 @@ class LeetDrawerState extends State<LeetDrawer> {
                 );},
             ),
             new ListTile(
-              leading: new Icon(Icons.info),
+              leading: new Icon(Icons.help),
               title: new Text('Help'),
               onTap: () {
                 Navigator.pop(context);
@@ -56,6 +79,12 @@ class LeetDrawerState extends State<LeetDrawer> {
                 context,
                 new MaterialPageRoute(builder: (ctxt) => new HelpPage()),
                 );},
+            ),
+            new AboutListTile(
+              icon: new Icon(Icons.info),
+              applicationName: "Wiki Leet",
+              applicationVersion: _projectVersion + "+" + _projectCode,
+              applicationLegalese: _projectAppID,
             ),
           ],
         ),
