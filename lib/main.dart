@@ -7,7 +7,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Leet App',
       theme: ThemeData(
         // Define the default Brightness and Colors
         brightness: Brightness.dark,
