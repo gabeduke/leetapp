@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
-      home: new LoginScreen(title: 'Leet App'),
+      home: new LoginScreen(title: 'Login'),
     );
   }
 }
