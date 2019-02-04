@@ -21,7 +21,7 @@ dependencies:
   cached_network_image: ^0.4.1
   flutter:
     sdk: flutter
-  firebase_auth:
+  firebase_auth: ^0.6.6
   google_sign_in:
   cloud_firestore:
 
